@@ -169,3 +169,21 @@ Carapace may not work with PowerShell 5. It might also conflict with other Power
 ```ps1
 carapace _carapace | Out-String | Invoke-Expression
 ```
+
+## [ripgrep](https://github.com/BurntSushi/ripgrep)
+
+_`grep` but better_
+
+ripgrep is a line-oriented search tool that recursively searches the current directory for a regex pattern. By default, ripgrep will respect gitignore rules and automatically skip hidden files/directories and binary files.
+
+### Install
+
+```ps1
+winget install BurntSushi.ripgrep.MSVC
+```
+
+### Setup _(Optional)_
+
+```ps1
+Set-Alias grep -Value rg.exe -Option AllScope
+```
