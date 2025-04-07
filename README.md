@@ -187,3 +187,31 @@ winget install BurntSushi.ripgrep.MSVC
 ```ps1
 Set-Alias grep -Value rg.exe -Option AllScope
 ```
+
+# AutoComplete
+
+_Some tools just need a little push_
+
+Adding these to our profile will enable these tools to autocomplete.
+
+## [nuke](https://nuke.build/docs/global-tool/shell-completion/#configuration)
+
+```ps1
+Register-ArgumentCompleter -Native -CommandName nuke -ScriptBlock {
+    param($commandName, $wordToComplete, $cursorPosition)
+    nuke :complete "$wordToComplete" | ForEach-Object {
+        [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+    }
+}
+```
+
+## [DotNet](https://learn.microsoft.com/en-us/dotnet/core/tools/enable-tab-autocomplete#powershell)
+
+```ps1
+Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
+    param($wordToComplete, $commandAst, $cursorPosition)
+        dotnet complete --position $cursorPosition "$commandAst" | ForEach-Object {
+            [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+        }
+}
+```
